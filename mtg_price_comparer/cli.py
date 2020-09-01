@@ -5,6 +5,12 @@ import mtg_price_comparer.card_kingdom.card_kingdom as ck
 import mtg_price_comparer.core as core
 
 
+def main():
+    filepath = sys.argv[1]
+    input_cards = get_cards_from_file(filepath)
+    ck.get_cards(input_cards)
+
+
 def get_cards_from_file(filepath):
     cards = []
     pattern = re.compile(r"^(\d+) (.*)$")
@@ -19,12 +25,6 @@ def get_cards_from_file(filepath):
         cards.append(core.CardEntry(tokens[1], tokens[0]))
 
     return cards
-
-
-def main():
-    filepath = sys.argv[1]
-    input_cards = get_cards_from_file(filepath)
-    ck.get_cards(input_cards)
 
 
 if __name__ == "__main__":

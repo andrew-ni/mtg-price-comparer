@@ -7,6 +7,12 @@ import mtg_price_comparer.card_kingdom.models as ck
 import mtg_price_comparer.core as core
 
 
+def get_cards(cards: t.List[core.CardEntry]) -> t.Dict[str, ck.Card]:
+    url = _get_url(cards)
+    response = requests.get(url)
+    return _get_cards_from_html(cards, response.text)
+
+
 def _get_url(cards: t.List[core.CardEntry]) -> str:
     url = 'https://www.cardkingdom.com/builder/mtg?maindeck='
     for (i, card_entry) in enumerate(cards):
@@ -14,12 +20,6 @@ def _get_url(cards: t.List[core.CardEntry]) -> str:
         if i < len(cards) - 1:
             url += '%0D%0A'
     return url + '&format=all'
-
-
-def get_cards(cards: t.List[core.CardEntry]) -> t.Dict[str, ck.Card]:
-    url = _get_url(cards)
-    response = requests.get(url)
-    return _get_cards_from_html(cards, response.text)
 
 
 def _get_cards_from_html(input_cards: t.List[core.CardEntry], html: str) -> t.Dict[str, ck.Card]:
