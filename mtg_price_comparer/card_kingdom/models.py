@@ -2,7 +2,7 @@ import enum
 import typing as t
 
 
-class QualityCK(str, enum.Enum):
+class Quality(str, enum.Enum):
     NM = 'NM'
     EX = 'EX'
     VG = 'VG'
@@ -11,11 +11,11 @@ class QualityCK(str, enum.Enum):
 
 class CardEntry:
     set_name: str = None
-    quality: QualityCK = None
+    quality: Quality = None
     quantity: int = None
     price: float = None
 
-    def __init__(self, set_name: str, quality: QualityCK, quantity: int, price: float):
+    def __init__(self, set_name: str, quality: Quality, quantity: int, price: float):
         self.set_name = set_name
         self.quality = quality
         self.quantity = quantity
@@ -24,7 +24,7 @@ class CardEntry:
 
 class Card:
     name: str = None
-    prices: t.Dict[QualityCK, t.List[CardEntry]] = {}
+    prices: t.Dict[Quality, t.List[CardEntry]] = {}
 
     def get_lowest_price(self, quality=None, quantity=1):
         pass

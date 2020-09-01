@@ -6,7 +6,6 @@ setuptools.setup(
     author="Andrew Ni",
     author_email="niandrewdev@gmail.com",
     description="Compares prices between TCG Player and Card Kingdom",
-    long_description_content_type="text/markdown",
     url="https://github.com/andrew-ni/mtg-price-comparer",
     packages=setuptools.find_packages(),
     classifiers=[

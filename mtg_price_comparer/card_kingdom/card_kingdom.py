@@ -1,9 +1,10 @@
 import typing as t
 
-import mtg_price_comparer.card_kingdom.models as models
+import mtg_price_comparer.card_kingdom.models as ck
+import mtg_price_comparer.models as core
 
 
-def get_url(cards_list: t.List[models.CardEntry]):
+def get_url(cards_list: t.List[core.CardEntry]) -> str:
     url = 'https://www.cardkingdom.com/builder/mtg?maindeck='
     for (i, card_entry) in enumerate(cards_list):
         url += f"{card_entry.quantity}+{card_entry.name.replace(' ', '+')}"
@@ -12,5 +13,9 @@ def get_url(cards_list: t.List[models.CardEntry]):
     return url + '&format=all'
 
 
-def get_cards_from_html(html: str) -> t.List[models.Card]:
+def get_cards(cards: t.List[core.CardEntry]) -> t.List[ck.Card]:
+    pass
+
+
+def get_cards_from_html(html: str) -> t.List[ck.Card]:
     pass

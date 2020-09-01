@@ -5,15 +5,23 @@ import bs4
 import requests
 
 import mtg_price_comparer.card_kingdom.card_kingdom as ck
+import mtg_price_comparer.models as models
 
 
-class CardEntry:
-    name: str = None
-    quantity: int = None
+def get_cards_from_file(filepath):
+    cards = []
+    pattern = re.compile(r"^(\d+) (.*)$")
+    with open(filepath) as f:
+        lines = f.readlines()
 
-    def __init__(self, name, quantity):
-        self.name = name
-        self.quantity = quantity
+    for line in lines:
+        if not pattern.match(line):
+            print(f"Not valid: {line}")
+            continue
+        tokens = line.strip().split(' ', 1)
+        cards.append(models.CardEntry(tokens[1], tokens[0]))
+
+    return cards
 
 
 def main():
@@ -33,20 +41,8 @@ def main():
     # print(soup.prettify())
 
 
-def get_cards_from_file(filepath):
-    cards = []
-    pattern = re.compile(r"^(\d+) (.*)$")
-    with open(filepath) as f:
-        lines = f.readlines()
-
-    for line in lines:
-        if not pattern.match(line):
-            print(f"Not valid: {line}")
-            continue
-        tokens = line.strip().split(' ', 1)
-        cards.append(CardEntry(tokens[1], tokens[0]))
-
-    return cards
+if __name__ == "__main__":
+    main()
 
 # def get_card_kingdom_regex(card_entry: CardEntry, html: str):
 #     pattern = re.compile(fr"{card_entry.name}(.|\s)*?(\d+) @(.|\s)*?([\d.]+)")
@@ -54,7 +50,3 @@ def get_cards_from_file(filepath):
 #     quantity = matches.group(2)
 #     price = matches.group(4)
 #     print(card_entry.name, quantity, price)
-
-
-if __name__ == "__main__":
-    main()
